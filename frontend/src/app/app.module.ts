@@ -11,6 +11,11 @@ import { PostsService } from './core/shared/services/posts/posts.service';
 import { PostsGqlRepository } from './core/shared/services/posts/gql-repository/posts-gql.repository';
 import { ApolloModule } from 'apollo-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from './state/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { PostsEffects } from './state/effects/posts.effects';
 
 @NgModule({
   declarations: [AppComponent, ChatComponent, LoginComponent],
@@ -21,6 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     GraphQLModule,
     ApolloModule,
     HttpClientModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    EffectsModule.forRoot([PostsEffects]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [PostsService, PostsGqlRepository],
   bootstrap: [AppComponent],
