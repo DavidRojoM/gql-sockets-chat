@@ -1,0 +1,20 @@
+<span>Logged as {{ name }}</span
+><span (click)="logout()">Logout</span>
+<main>
+  <section class="message-section">
+    {{ posts$ | async | json }}
+  </section>
+  <form
+    class="new-message-section"
+    (submit)="createPost($event)"
+    [formGroup]="form"
+  >
+    <input
+      placeholder="content"
+      type="text"
+      name="content"
+      id="content"
+      formControlName="content"
+    />
+  </form>
+</main>
