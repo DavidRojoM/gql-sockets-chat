@@ -13,10 +13,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ChatComponent implements OnInit {
   public name = localStorage.getItem('name') as string;
-  public posts$!: Observable<PostDto[]>;
+  public posts$!: Observable<ReadonlyArray<PostDto>>;
 
   public form = this.fb.group({
-    content: ['', [Validators.required, Validators.minLength(3)]],
+    content: ['', [Validators.required]],
   });
   constructor(
     private readonly localStorageService: LocalStorageService,
@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.postsService.loadPosts();
     this.posts$ = this.postsService.findAll();
   }
 
@@ -36,14 +37,18 @@ export class ChatComponent implements OnInit {
 
   createPost(event: Event) {
     event.preventDefault();
-    if (this.form.valid) {
-      const { content } = this.form.value;
-      this.postsService.createOne({
+    if (!this.form.valid) {
+      return;
+    }
+
+    const { content } = this.form.value;
+    this.postsService
+      .createOne({
         id: '',
         content,
         title: this.name,
-      });
-      this.form.reset();
-    }
+      })
+      .subscribe();
+    this.form.reset();
   }
 }
