@@ -9,13 +9,16 @@ export class PostsResolver {
   private readonly pubSub = new PubSub();
   constructor(private readonly postsService: PostsService) {}
 
-  @Query((returns) => [Post])
+  @Query((returns) => [Post], {
+    nullable: 'items',
+  })
   findAll() {
     return this.postsService.findAll();
   }
 
   @Mutation((returns) => Post)
   createPost(@Args('postInput') postInput: PostInput) {
+    //TODO: CONVERT TO DTO
     this.pubSub.publish('postAdded', {
       postAdded: postInput,
     });
