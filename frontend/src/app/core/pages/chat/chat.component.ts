@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../shared/services/local-storage/local-storage.service';
 import { Router } from '@angular/router';
 import { PostsService } from '../../shared/services/posts/posts.service';
@@ -11,7 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   public name = localStorage.getItem('name') as string;
   public posts$!: Observable<ReadonlyArray<PostDto>>;
 
@@ -27,12 +27,20 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.postsService.loadPosts();
-    this.posts$ = this.postsService.findAll();
+    this.posts$ = this.postsService.findAll().pipe();
+
+    setTimeout(() => {
+      this.postsService.scrollToBottom();
+    }, 100);
+  }
+
+  ngAfterViewInit() {
+    this.postsService.scrollToBottom();
   }
 
   logout() {
     this.localStorageService.remove('name');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('');
   }
 
   createPost(event: Event) {

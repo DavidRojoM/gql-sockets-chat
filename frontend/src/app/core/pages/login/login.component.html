@@ -1,4 +1,7 @@
-<form action="" (submit)="login()" [formGroup]="form">
-  <input placeholder="Nickname..." type="text" name="" id="" formControlName="name">
-  <button type="submit">Login</button>
-</form>
+<main>
+  <form action="" (submit)="login()" [formGroup]="form">
+    <label for="nickname">Choose a nickname</label>
+    <input type="text" name="" id="nickname" formControlName="name" autofocus />
+    <button type="submit">Login</button>
+  </form>
+</main>

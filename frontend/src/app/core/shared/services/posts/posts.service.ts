@@ -38,7 +38,7 @@ export class PostsService {
     });
   }
 
-  private scrollToBottom() {
+  public scrollToBottom() {
     //Extract this
     const messageSection = document.querySelector(
       '.message-section'

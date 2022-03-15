@@ -1,5 +1,7 @@
-<span>Logged as {{ name }}</span
-><span (click)="logout()">Logout</span>
+<header>
+  <span>Logged as {{ name }}</span
+  ><span (click)="logout()">Logout</span>
+</header>
 <main>
   <section class="message-section">
     <div
@@ -27,6 +29,7 @@
       name="content"
       id="content"
       formControlName="content"
+      autofocus
     />
   </form>
 </main>
