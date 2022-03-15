@@ -1,7 +1,14 @@
 <main>
   <form action="" (submit)="login()" [formGroup]="form">
     <label for="nickname">Choose a nickname</label>
-    <input type="text" name="" id="nickname" formControlName="name" autofocus />
+    <input
+      type="text"
+      name=""
+      id="nickname"
+      formControlName="name"
+      autofocus
+      autocomplete="off"
+    />
     <button type="submit">Login</button>
   </form>
 </main>
