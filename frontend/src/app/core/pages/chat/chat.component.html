@@ -2,7 +2,19 @@
 ><span (click)="logout()">Logout</span>
 <main>
   <section class="message-section">
-    {{ posts$ | async | json }}
+    <div
+      [ngClass]="name === post.title ? 'my-message' : 'others-message'"
+      class="message"
+      *ngFor="let post of posts$ | async"
+    >
+      <span class="message-author"
+        ><b>{{
+          post.title === name ? "Yo" : (post.title | titlecase)
+        }}</b></span
+      >
+
+      <p>{{ post.content }}</p>
+    </div>
   </section>
   <form
     class="new-message-section"
@@ -10,7 +22,7 @@
     [formGroup]="form"
   >
     <input
-      placeholder="content"
+      placeholder="Type your message here..."
       type="text"
       name="content"
       id="content"

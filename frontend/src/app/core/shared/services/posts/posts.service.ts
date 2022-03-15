@@ -31,6 +31,18 @@ export class PostsService {
   private postAdded() {
     this.postsRepository.postAdded().subscribe((post) => {
       this.storeService.loadPost(post);
+      //TODO: REFACTOR
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 1);
     });
+  }
+
+  private scrollToBottom() {
+    //Extract this
+    const messageSection = document.querySelector(
+      '.message-section'
+    ) as HTMLDivElement;
+    messageSection.scrollTo(0, messageSection.scrollHeight + 10);
   }
 }
