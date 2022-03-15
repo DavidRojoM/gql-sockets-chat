@@ -4,13 +4,7 @@ import { PostInput } from './dto/post.input';
 
 @Injectable()
 export class PostsRepository {
-  public posts: Post[] = [
-    {
-      id: '1',
-      title: 'title',
-      content: 'content',
-    },
-  ];
+  public posts: Post[] = [];
 
   public findAll() {
     return [...this.posts];
